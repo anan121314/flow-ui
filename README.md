@@ -19,8 +19,8 @@ Ensure you have the following installed:
 Clone the repository and install dependencies:
 
  ```sh
- git clone https://github.com/your-username/MyApp.git
- cd MyApp
+ git clone https://github.com/anan121314/flow-ui.git
+ cd flow-ui
  npm install
 ```
 ### ▶️ Running the App
