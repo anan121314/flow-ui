@@ -22,14 +22,14 @@ Clone the repository and install dependencies:
  git clone https://github.com/your-username/MyApp.git
  cd MyApp
  npm install
-
+```
 ### ▶️ Running the App
 - Install Expo go app from android play store
 - Install adb in your development device.
-- enable developer options in your mobile and enable usb debugging.
-- connect your phone via USB cable.
+- Enable developer options in your mobile and enable usb debugging.
+- Connect your phone via USB cable.
 - Start the local server using the command:
 
 ```sh
  npx expo start --localhost --android
-
+```
