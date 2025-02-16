@@ -19,6 +19,6 @@ Ensure you have the following installed:
 Clone the repository and install dependencies:
 
 ```sh
-git clone https://github.com/your-username/MyApp.git
-cd MyApp
-npm install
+- git clone https://github.com/your-username/MyApp.git
+- cd MyApp
+- npm install
