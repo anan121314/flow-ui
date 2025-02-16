@@ -12,7 +12,7 @@ Ensure you have the following installed:
 - [Expo CLI](https://expo.dev/)  
 ```sh
  npm install -g expo-cli
-
+```
 
 ### 📥 Installation
 
