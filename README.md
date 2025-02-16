@@ -18,7 +18,7 @@ npm install -g expo-cli
 
 Clone the repository and install dependencies:
 
-```sh
+ ```sh
 git clone https://github.com/your-username/MyApp.git
 cd MyApp
 npm install
@@ -30,6 +30,6 @@ npm install
 - connect your phone via USB cable.
 - Start the local server using the command:
 
-```sh
+ ```sh
 npx expo start --localhost --android
 
