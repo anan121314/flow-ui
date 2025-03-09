@@ -15,7 +15,11 @@
     "react-icons": "^5.5.0",
     "react-native": "0.76.7",
     "react-native-safe-area-context": "^5.2.0",
-    "react-native-svg": "15.8.0"
+    "react-native-svg": "15.8.0",
+    "expo-auth-session": "~6.0.3",
+    "undefined": "expo-auth-session/providers/google",
+    "expo-secure-store": "~14.0.1",
+    "react-native-gesture-handler": "~2.20.2"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

@@ -1,12 +1,48 @@
-import React, { useState } from "react";
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image } from "react-native";
+import React, { useState, useEffect } from "react";
+import { View, Text, TextInput, TouchableOpacity, StyleSheet } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 import Logo from '../assets/dummy-logo.svg';
+import * as Google from "expo-auth-session/providers/google";
+import * as SecureStore from "expo-secure-store";
 
 export default function LoginScreen() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false);
+    const [token, setToken] = useState(null);
+
+    const [request, response, promptAsync] = Google.useAuthRequest({
+        androidClientId: "433187667996-njep4t2ceoejkt596iploupj5qmdoa3b.apps.googleusercontent.com",
+    });
+
+    useEffect(() => {
+        if (response?.type === "success") {
+            const { authentication } = response;
+            setToken(authentication?.accessToken);
+            sendTokenToBackend(authentication?.idToken);
+        }
+    }, [response]);
+
+    const sendTokenToBackend = async (idToken) => {
+        try {
+            let res = await fetch("http://35.208.14.10:8080/auth/google/signin", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ idToken }),
+            });
+            let data = await res.json();
+            if (data.success) {
+                await SecureStore.setItemAsync("jwt_token", data.jwt);
+                Alert.alert("Login Successful", "Welcome!");
+            } else {
+                Alert.alert("Login Failed", data.message);
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    };
 
     return (
         <View style={styles.container}>
@@ -58,7 +94,7 @@ export default function LoginScreen() {
                 <Text style={styles.authButtonText}>Sign in with Apple</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={[styles.authButton, styles.transparentButton]}>
+            <TouchableOpacity disabled={!request} onPress={() => promptAsync()} style={[styles.authButton, styles.transparentButton]}>
                 <FontAwesome name="google" size={20} color="blue" />
                 <Text style={styles.authButtonText}>Sign in with Google</Text>
             </TouchableOpacity>
