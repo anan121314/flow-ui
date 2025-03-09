@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, TextInput, TouchableOpacity, StyleSheet } from "react-native";
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, ActivityIndicator } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 import Logo from '../assets/dummy-logo.svg';
 import * as Google from "expo-auth-session/providers/google";
@@ -10,6 +10,8 @@ export default function LoginScreen() {
     const [password, setPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false);
     const [token, setToken] = useState(null);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState("");
 
     const [request, response, promptAsync] = Google.useAuthRequest({
         androidClientId: "433187667996-njep4t2ceoejkt596iploupj5qmdoa3b.apps.googleusercontent.com",
@@ -24,6 +26,7 @@ export default function LoginScreen() {
     }, [response]);
 
     const sendTokenToBackend = async (idToken) => {
+        setLoading(true);
         try {
             let res = await fetch("http://35.208.14.10:8080/auth/google/signin", {
                 method: "POST",
@@ -37,23 +40,48 @@ export default function LoginScreen() {
                 await SecureStore.setItemAsync("jwt_token", data.jwt);
                 Alert.alert("Login Successful", "Welcome!");
             } else {
-                Alert.alert("Login Failed", data.message);
+                setError(data.message);
             }
         } catch (error) {
+            setError("An error occurred. Please try again.");
             console.error(error);
+        } finally {
+            setLoading(false);
         }
+    };
+
+    const validateEmail = (email) => {
+        const re = /\S+@\S+\.\S+/;
+        return re.test(email);
+    };
+
+    const handleLogin = () => {
+        if (!email || !password) {
+            setError("Please fill in all fields");
+            return;
+        }
+        if (!validateEmail(email)) {
+            setError("Please enter a valid email address");
+            return;
+        }
+        // Proceed with login logic
+        Alert.alert("Login Successful", `Welcome, ${email}!`);
     };
 
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Welcome to Flow !</Text>
             <Logo width={100} height={100} fill="white" style={styles.logo} />
+            {error ? <Text style={styles.errorText}>{error}</Text> : null}
             <TextInput
                 style={styles.input}
                 placeholder="Email"
                 placeholderTextColor="#ccc"
                 value={email}
-                onChangeText={setEmail}
+                onChangeText={(text) => {
+                    setEmail(text);
+                    setError("");
+                }}
             />
 
             <View style={styles.passwordContainer}>
@@ -63,15 +91,18 @@ export default function LoginScreen() {
                     placeholderTextColor="#ccc"
                     secureTextEntry={!showPassword}
                     value={password}
-                    onChangeText={setPassword}
+                    onChangeText={(text) => {
+                        setPassword(text);
+                        setError("");
+                    }}
                 />
                 <TouchableOpacity onPress={() => setShowPassword(!showPassword)} style={styles.eyeIcon}>
                     <FontAwesome name={showPassword ? "eye" : "eye-slash"} size={20} color="#ccc" />
                 </TouchableOpacity>
             </View>
 
-            <TouchableOpacity style={styles.loginButton}>
-                <Text style={styles.loginText}>Login</Text>
+            <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
+                {loading ? <ActivityIndicator color="#fff" /> : <Text style={styles.loginText}>Login</Text>}
             </TouchableOpacity>
 
             <View style={styles.optionsContainer}>
@@ -208,5 +239,9 @@ const styles = StyleSheet.create({
     link: {
         color: "white",
         fontWeight: "bold",
+    },
+    errorText: {
+        color: "red",
+        marginBottom: 10,
     },
 });
