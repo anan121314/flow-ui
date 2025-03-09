@@ -114,7 +114,7 @@ const styles = StyleSheet.create({
     },
     loginText: {
         color: "white",
-        fontSize: 15,
+        fontSize: 14,
     },
     optionsContainer: {
         flexDirection: "row",
@@ -124,14 +124,14 @@ const styles = StyleSheet.create({
     },
     optionText: {
         color: "#aaa",
-        fontSize: 13,
+        fontSize: 12,
         padding: 10
     },
     divider: {
         flexDirection: "row",
         alignItems: "center",
         width: "100%",
-        marginBottom: 10,
+        marginBottom: 20,
     },
     line: {
         flex: 1,
@@ -160,14 +160,14 @@ const styles = StyleSheet.create({
     authButtonText: {
         color: "black",
         marginLeft: 10,
-        fontSize: 15,
+        fontSize: 14,
     },
     termsText: {
         color: "#aaa",
         fontSize: 12,
         textAlign: "center",
         marginBottom: 15,
-        marginTop: 10
+        marginTop: 15
     },
     link: {
         color: "white",
