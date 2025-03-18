@@ -1,7 +1,16 @@
 {
   "expo": {
+    "doctor": {
+      "reactNativeDirectoryCheck": {
+        "listUnknownPackages": false
+      }
+    },
+    "androidStatusBar": {
+      "hidden": true
+    },
     "name": "flow",
-    "slug": "flow",
+    "slug": "flow-app",
+    "scheme": "flow-app",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -16,22 +25,27 @@
       "supportsTablet": true
     },
     "android": {
-      "package": "com.mycompany.flow",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#0000"
-      }
+      },
+      "package": "com.ananthakrishnan.flow"
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
     "extra": {
       "eas": {
-        "projectId": "b2671f18-ac95-44a2-be4f-8ae74bf0dc57"
+        "projectId": "b62998ab-9ba6-4df9-908a-9ecac4a70947"
       }
     },
     "plugins": [
       "expo-secure-store"
-    ]
+    ],
+    "owner": "ananthakrishnan",
+    "runtimeVersion": "1.0.0",
+    "updates": {
+      "url": "https://u.expo.dev/b62998ab-9ba6-4df9-908a-9ecac4a70947"
+    }
   }
 }
