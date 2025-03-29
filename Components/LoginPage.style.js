@@ -37,7 +37,7 @@ export const styles = StyleSheet.create({
     loginButton: {
         width: "100%",
         padding: 12,
-        backgroundColor: "green",
+        backgroundColor: "#7a11bf",
         borderRadius: 15,
         alignItems: "center",
         marginVertical: 10,
@@ -103,4 +103,7 @@ export const styles = StyleSheet.create({
         color: "white",
         fontWeight: "bold",
     },
+    message: {
+        color: "white"
+    }
 });
